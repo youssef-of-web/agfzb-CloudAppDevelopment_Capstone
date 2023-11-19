@@ -14,12 +14,43 @@
 </head>
 
     <body>
-    <!-- Remove this line the first time you edit this file -->
-     This is the index page of your Django app!
-    <!--Add a nav bar here -->
+       
+        <nav class="d-flex align-items-center justify-content-between">
+            <span>Dealership Review</span>
+            
+                {% if user.is_authenticated %}
+                <div class="rightalign">
+                    <div class="dropdown d-flex align-items-center">
+                        <span class="badge badge-success">{{user.username}}</span>
+                        <div class="dropdown-content">
+                                <a href="{% url 'djangoapp:logout' %}" class="btn btn-primary">Logout</a>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+            
+            <div>
+                <form action="{% url 'djangoapp:login' %}" method="post" class="d-flex g-3">
+                 {% csrf_token %}
+                            <input type="text" class="form-control" placeholder="Enter User Name: " name="username" required>
+                            <input type="password" class="form-control" placeholder="Enter Password: " name="password" required>
+                            <button class="btn btn-primary" type="submit">Login</button>
+                            <a href="{% url 'djangoapp:registration' %}"  class="btn btn-secondary">SignUp</a>
+                        
+                </form>
+            </div>
+            {% endif %}
+            
 
-    <!--Add a dealer table here -->
 
+        </nav>
+
+
+
+
+        {% if user.is_authenticated %}
+        <p>Username: {{user.username}} </p>
+        {% endif %}
     </body>
 
 </html>
